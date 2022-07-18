@@ -33,7 +33,7 @@ const
 		accentDanger: 'E85955',
 	},
 	size = {
-		headerHeight: 55,
+		headerHeight: 80,
 	},
 	general = {
 		blur: 80,

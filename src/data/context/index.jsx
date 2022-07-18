@@ -22,5 +22,5 @@ const GlobalContextProvider = ({ children }) => {
 	);
 };
 
-export { useChat } from './accounts/AccountsContext';
+export { useAccounts } from './accounts/AccountsContext';
 export default GlobalContextProvider;

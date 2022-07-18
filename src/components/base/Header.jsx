@@ -7,30 +7,30 @@ import styled, { useTheme } from 'styled-components/native';
 import BackSVG from '#assets/icons/arrowLeft.svg';
 import Icon from '#components/base/Icon';
 
-export default function HeaderView ({ title }) {
+export default function Header () {
 	const theme = useTheme(),
 		insets = useSafeAreaInsets(),
 
 		user = { avatar: 'https://lh3.googleusercontent.com/ogw/AOh-ky2XlM-UaX8itCvHPZr6gayzFIK0bxrb3oIO3xuh6qo=s64-c-mo' };
 
 	return (
-		<Header top={insets.top} intensity={theme.general.blur} tint={theme.name === 'light' ? 'light' : 'dark'}>
+		<HeaderLayout top={insets.top} intensity={theme.general.blur} tint={theme.name === 'light' ? 'light' : 'dark'}>
 			<MainContainer>
 				<Back android_ripple={{ borderless: true }}>
 					<Icon><BackSVG width='40%' height='40%' fill={theme.color.contentPrimary} /></Icon>
 				</Back>
-				<Title android_ripple={{ borderless: true }}><TitleText>{title}</TitleText></Title>
+				<Title android_ripple={{ borderless: true }}><TitleText>DASH</TitleText></Title>
 				<Avatar android_ripple={{ borderless: true }} onPress={() => {}}>
 					<AvatarImage source={{ uri: user.avatar }}
-						style={{ width: theme.size.headerHeight - 15, height: theme.size.headerHeight - 15 }}
+						style={{ width: theme.size.headerHeight / 2, height: theme.size.headerHeight / 2 }}
 					/>
 				</Avatar>
 			</MainContainer>
-		</Header>
+		</HeaderLayout>
 	);
 }
 
-const Header = styled(BlurView) < { top } > `
+const HeaderLayout = styled(BlurView)`
 		position: absolute;
 		top: 0;
 		width: 100%;
@@ -46,6 +46,7 @@ const Header = styled(BlurView) < { top } > `
 		height: ${({ theme }) => theme.size.headerHeight}px;
 		justify-content: center;
 		padding-left: 10px;
+		opacity: 0;
 	`,
 	Title = styled(Pressable)`
 		flex: 1;
