@@ -1,0 +1,16 @@
+{
+	"compilerOptions": {
+		"strict": true,
+		"experimentalDecorators": true,
+		"baseUrl": ".",
+		"typeRoots": [ "./src/data/types", "./node_modules/@types"],
+		"paths": {
+			"#assets/*": ["./src/assets/*"],
+			"#data/*": ["./src/data/*"],
+			"#utils/*": ["./src/utils/*"],
+
+			"#components/*": ["./src/components/*"],
+			"#hooks/*": ["./src/components/hooks/*"]
+		}
+	}
+}

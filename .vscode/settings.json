@@ -1,0 +1,22 @@
+{
+	"files.eol": "\n",
+	"editor.tabSize": 4,
+	"editor.insertSpaces": false,
+	"editor.detectIndentation": false,
+	"editor.codeActionsOnSave": {
+		"source.fixAll.eslint": true
+	},
+
+	"gitmoji.showEmojiCode": true,
+	"gitmoji.additionalEmojis": [
+		{
+			"emoji": "💅🏻",
+			"code": ":nail_care:",
+			"description": "Updates related to Styled Components"
+		}
+	],
+
+	"cSpell.words": [
+		
+	]
+}
