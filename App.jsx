@@ -1,21 +1,28 @@
-import { StyleSheet, Text, View } from 'react-native';
+import { useColorScheme } from 'react-native';
 
+import { NavigationContainer } from '@react-navigation/native';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { StatusBar } from 'expo-status-bar';
+import { SafeAreaProvider } from 'react-native-safe-area-context';
+import { ThemeProvider } from 'styled-components/native';
+
+import { getTheme } from '#data/theme';
+
+const Stack = createNativeStackNavigator();
 
 export default function App () {
+	const colorScheme = useColorScheme();
+
 	return (
-		<View style={styles.container}>
-			<Text>Open up App.js to start working on your app!</Text>
-			<StatusBar style='auto' />
-		</View>
+		<SafeAreaProvider>
+			<ThemeProvider theme={getTheme(colorScheme)}>
+				<NavigationContainer>
+					<Stack.Navigator>
+						<Stack.Screen name='2FADash' component={Chat} />
+					</Stack.Navigator>
+				</NavigationContainer>
+				<StatusBar style='auto' animated networkActivityIndicatorVisible />
+			</ThemeProvider>
+		</SafeAreaProvider>
 	);
 }
-
-const styles = StyleSheet.create({
-	container: {
-		flex: 1,
-		backgroundColor: '#fff',
-		alignItems: 'center',
-		justifyContent: 'center',
-	},
-});
