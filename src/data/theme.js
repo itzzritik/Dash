@@ -5,33 +5,38 @@ import { OS } from '#utils/constants';
 
 const
 	lightTheme = {
-		backgroundPrimary: '#ffffff',
-		backgroundSecondary: '#eeeeee',
+		backgroundPrimary: '#F6F6F7',
+		backgroundSecondary: '#FFFFFF',
 		backgroundTertiary: '#dddddd',
 
-		contentPrimary: '#000000',
-		contentSecondary: '#000000',
+		contentPrimary: '#192438',
+		contentSecondary: '#848C96',
 		contentTertiary: '#aaaaaa',
 
-		brandPrimary: '#9797df',
+		brandPrimary: '#4B90D3',
+
+		accentWarning: '6DA64B',
+		accentDanger: 'E85955',
 	},
 	darkTheme = {
-		backgroundPrimary: '#000000',
-		backgroundSecondary: '#111111',
+		backgroundPrimary: '#1E2021',
+		backgroundSecondary: '#252728',
 		backgroundTertiary: '#222222',
 
-		contentPrimary: '#ffffff',
-		contentSecondary: '#ffffff',
+		contentPrimary: '#FFFFFF',
+		contentSecondary: '#6C6E72',
 		contentTertiary: '#444444',
 
-		brandPrimary: '#9797df',
+		brandPrimary: '#4B90D3',
+
+		accentWarning: '6DA64B',
+		accentDanger: 'E85955',
 	},
 	size = {
 		headerHeight: 55,
 	},
 	general = {
 		blur: 80,
-		chatInputPadding: 20,
 	},
 
 	getTheme = (colorScheme) => {
