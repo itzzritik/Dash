@@ -11,7 +11,7 @@ export default function HeaderView ({ title }) {
 	const theme = useTheme(),
 		insets = useSafeAreaInsets(),
 
-		user = { avatar: '' };
+		user = { avatar: 'https://lh3.googleusercontent.com/ogw/AOh-ky2XlM-UaX8itCvHPZr6gayzFIK0bxrb3oIO3xuh6qo=s64-c-mo' };
 
 	return (
 		<Header top={insets.top} intensity={theme.general.blur} tint={theme.name === 'light' ? 'light' : 'dark'}>
