@@ -8,8 +8,10 @@ import { useAccounts } from '#data/context';
 import AccountCard from './AccountCard.jsx';
 
 export default function AccountsList () {
-	const accounts = useAccounts(),
+	let { accounts, tokens } = useAccounts(),
 		insets = useSafeAreaInsets();
+
+	accounts = accounts.map((account) => ({ ...account, token: tokens[account.id] }));
 
 	return (
 		<AccountsListLayout data={accounts} renderItem={AccountCard}

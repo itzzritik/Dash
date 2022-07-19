@@ -22,7 +22,7 @@ export default function Header () {
 				<Title android_ripple={{ borderless: true }}><TitleText>DASH</TitleText></Title>
 				<Avatar android_ripple={{ borderless: true }} onPress={() => {}}>
 					<AvatarImage source={{ uri: user.avatar }}
-						style={{ width: theme.size.headerHeight / 2, height: theme.size.headerHeight / 2 }}
+						style={{ width: theme.size.headerHeight - 20, height: theme.size.headerHeight - 20 }}
 					/>
 				</Avatar>
 			</MainContainer>
@@ -40,6 +40,7 @@ const HeaderLayout = styled(BlurView)`
 	MainContainer = styled(View)`
 		flex: 1;
 		flex-direction: row;
+		padding: 0 5px;
 	`,
 	Back = styled(Pressable)`
 		width: ${({ theme }) => theme.size.headerHeight}px;

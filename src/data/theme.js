@@ -19,7 +19,7 @@ const
 		accentDanger: 'E85955',
 	},
 	darkTheme = {
-		backgroundPrimary: '#1E2021',
+		backgroundPrimary: '#1E1F21',
 		backgroundSecondary: '#252728',
 		backgroundTertiary: '#222222',
 
@@ -33,7 +33,7 @@ const
 		accentDanger: 'E85955',
 	},
 	size = {
-		headerHeight: 80,
+		headerHeight: 60,
 	},
 	general = {
 		blur: 80,

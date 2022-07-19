@@ -1,9 +1,14 @@
+import { Buffer } from 'buffer';
+
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { StatusBar } from 'expo-status-bar';
 
 import Accounts from '#components/screens/accounts';
 import GlobalContextProvider from '#data/context';
+
+// eslint-disable-next-line no-undef
+global.Buffer = Buffer;
 
 const { Navigator, Screen } = createNativeStackNavigator();
 
