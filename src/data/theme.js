@@ -15,8 +15,9 @@ const
 
 		brandPrimary: '#4B90D3',
 
-		accentWarning: '6DA64B',
-		accentDanger: 'E85955',
+		accentSuccess: '#6DA64B',
+		accentWarning: '#F6D36D',
+		accentDanger: '#E85955',
 	},
 	darkTheme = {
 		backgroundPrimary: '#1E1F21',
@@ -29,8 +30,9 @@ const
 
 		brandPrimary: '#4B90D3',
 
-		accentWarning: '6DA64B',
-		accentDanger: 'E85955',
+		accentSuccess: '#6DA64B',
+		accentWarning: '#F6D36D',
+		accentDanger: '#E85955',
 	},
 	size = {
 		headerHeight: 60,

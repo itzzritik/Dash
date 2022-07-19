@@ -18,7 +18,7 @@ export default function Header () {
 	return (
 		<HeaderLayout top={insets.top} intensity={theme.general.blur} tint={theme.name === 'light' ? 'light' : 'dark'}>
 			<MainContainer>
-				<Timer>{remainingTime ? remainingTime : ''}</Timer>
+				<Timer>{remainingTime ? remainingTime + 's' : ''}</Timer>
 				<Title android_ripple={{ borderless: true }}><TitleText>DASH</TitleText></Title>
 				<Avatar android_ripple={{ borderless: true }} onPress={() => {}}>
 					<AvatarImage source={{ uri: user.avatar }}
@@ -49,7 +49,7 @@ const HeaderLayout = styled(BlurView)`
 		height: ${({ theme }) => theme.size.headerHeight}px;
 		color: ${({ theme }) => theme.color.contentPrimary};
 		line-height: ${({ theme }) => theme.size.headerHeight}px;
-		font-size: 25px;
+		font-size: 18px;
 		font-weight: 100;
 		text-align: center;
 		padding-left: 10px;

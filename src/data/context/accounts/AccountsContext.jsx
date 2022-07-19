@@ -4,7 +4,6 @@ import { totpToken, totpOptions, KeyEncodings } from '@otplib/core';
 import { keyDecoder } from '@otplib/plugin-base32-enc-dec';
 import { createDigest } from '@otplib/plugin-crypto-js';
 import { getItemAsync, setItemAsync } from 'expo-secure-store';
-import { isEmpty } from 'lodash';
 
 const secretCode = 'YCEUXZKPADTDHN75',
 	accountDataOnline = [

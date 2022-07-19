@@ -71,7 +71,7 @@ const AccountCardLayout = styled(View)`
 		background-color: ${({ theme }) => theme.color.backgroundPrimary};
 		color: ${({ theme }) => theme.color.contentPrimary};
 		font-size: 24px;
-		font-weight: 400;
+		font-weight: 600;
 		border-radius: 10px;
 		overflow: hidden;
 		align-items: center;
