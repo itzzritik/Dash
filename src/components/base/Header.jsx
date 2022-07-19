@@ -4,28 +4,29 @@ import { BlurView } from 'expo-blur';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import styled, { useTheme } from 'styled-components/native';
 
-import BackSVG from '#assets/icons/arrowLeft.svg';
-import Icon from '#components/base/Icon';
+import { useAccounts } from '#data/context';
+
+import ProgressBar from './ProgressBar';
 
 export default function Header () {
 	const theme = useTheme(),
 		insets = useSafeAreaInsets(),
+		{ remainingTime } = useAccounts(),
 
 		user = { avatar: 'https://lh3.googleusercontent.com/ogw/AOh-ky2XlM-UaX8itCvHPZr6gayzFIK0bxrb3oIO3xuh6qo=s64-c-mo' };
 
 	return (
 		<HeaderLayout top={insets.top} intensity={theme.general.blur} tint={theme.name === 'light' ? 'light' : 'dark'}>
 			<MainContainer>
-				<Back android_ripple={{ borderless: true }}>
-					<Icon><BackSVG width='40%' height='40%' fill={theme.color.contentPrimary} /></Icon>
-				</Back>
+				<Timer>{remainingTime ? remainingTime : ''}</Timer>
 				<Title android_ripple={{ borderless: true }}><TitleText>DASH</TitleText></Title>
 				<Avatar android_ripple={{ borderless: true }} onPress={() => {}}>
 					<AvatarImage source={{ uri: user.avatar }}
-						style={{ width: theme.size.headerHeight - 20, height: theme.size.headerHeight - 20 }}
+						style={{ width: theme.size.headerHeight - 25, height: theme.size.headerHeight - 25 }}
 					/>
 				</Avatar>
 			</MainContainer>
+			<ProgressBar progress={remainingTime * 100 / 30} />
 		</HeaderLayout>
 	);
 }
@@ -35,6 +36,7 @@ const HeaderLayout = styled(BlurView)`
 		top: 0;
 		width: 100%;
 		height: ${({ theme, top }) => theme.size.headerHeight + top}px;
+		flex-direction: column;
 		padding-top: ${({ top }) => top}px;
 	`,
 	MainContainer = styled(View)`
@@ -42,12 +44,15 @@ const HeaderLayout = styled(BlurView)`
 		flex-direction: row;
 		padding: 0 5px;
 	`,
-	Back = styled(Pressable)`
+	Timer = styled(Text)`
 		width: ${({ theme }) => theme.size.headerHeight}px;
 		height: ${({ theme }) => theme.size.headerHeight}px;
-		justify-content: center;
+		color: ${({ theme }) => theme.color.contentPrimary};
+		line-height: ${({ theme }) => theme.size.headerHeight}px;
+		font-size: 25px;
+		font-weight: 100;
+		text-align: center;
 		padding-left: 10px;
-		opacity: 0;
 	`,
 	Title = styled(Pressable)`
 		flex: 1;

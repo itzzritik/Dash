@@ -7,7 +7,7 @@ export default function AccountCard ({ item: { icon, issuer, label, token = '' }
 		<AccountCardLayout android_ripple={{ borderless: true }}>
 			<Header>
 				<IssuerLogo source={{ uri: icon }}
-					style={{ width: 45, height: 45 }}
+					style={{ width: 40, height: 40 }}
 				/>
 				<HeaderTitle>
 					<Issuer>{issuer}</Issuer>
@@ -71,7 +71,7 @@ const AccountCardLayout = styled(View)`
 		background-color: ${({ theme }) => theme.color.backgroundPrimary};
 		color: ${({ theme }) => theme.color.contentPrimary};
 		font-size: 24px;
-		font-weight: bold;
+		font-weight: 400;
 		border-radius: 10px;
 		overflow: hidden;
 		align-items: center;

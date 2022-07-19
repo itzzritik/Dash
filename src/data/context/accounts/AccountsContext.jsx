@@ -4,12 +4,14 @@ import { totpToken, totpOptions, KeyEncodings } from '@otplib/core';
 import { keyDecoder } from '@otplib/plugin-base32-enc-dec';
 import { createDigest } from '@otplib/plugin-crypto-js';
 import { getItemAsync, setItemAsync } from 'expo-secure-store';
+import { isEmpty } from 'lodash';
 
-const accountDataOnline = [
+const secretCode = 'YCEUXZKPADTDHN75',
+	accountDataOnline = [
 		{
 			id: 'id1',
 			label: 'GitHub: Ritik Srivastava',
-			secret: 'OGXBUHZMEHKMEDXJ',
+			secret: secretCode,
 			issuer: 'GitHub',
 			color: '#28a745',
 			icon: 'https://asset.brandfetch.io/idZAyF9rlg/idd6TtF-kc.png',
@@ -17,7 +19,7 @@ const accountDataOnline = [
 		{
 			id: 'id2',
 			label: 'Google: Ritik Srivastava',
-			secret: 'OGXBUHZMEHKMEDXJ',
+			secret: secretCode,
 			issuer: 'Google',
 			color: '#4285F4',
 			icon: 'https://asset.brandfetch.io/id6O2oGzv-/idNEgS9h8q.jpeg',
@@ -25,7 +27,7 @@ const accountDataOnline = [
 		{
 			id: 'id3',
 			label: 'Microsoft: Ritik Srivastava',
-			secret: 'OGXBUHZMEHKMEDXJ',
+			secret: secretCode,
 			issuer: 'Microsoft',
 			color: '#0067b8',
 			icon: 'https://asset.brandfetch.io/idchmboHEZ/idtz-2CKRH.jpeg',
@@ -33,7 +35,7 @@ const accountDataOnline = [
 		{
 			id: 'id4',
 			label: 'Zomato: Ritik Srivastava',
-			secret: 'OGXBUHZMEHKMEDXJ',
+			secret: secretCode,
 			issuer: 'Zomato',
 			color: '#d94148',
 			icon: 'https://asset.brandfetch.io/idEql8nEWn/idNLMWCnFH.png',
@@ -41,18 +43,19 @@ const accountDataOnline = [
 		{
 			id: 'id5',
 			label: 'Heroku: Ritik Srivastava',
-			secret: 'OGXBUHZMEHKMEDXJ',
+			secret: secretCode,
 			issuer: 'Heroku',
 			color: '#4a4090',
 			icon: 'https://asset.brandfetch.io/idznrs7lk6/iddLvd3sUp.png',
 		},
 	],
-	hashOnline = '76a8cad0fd9a9247b47a6f6e410dadf8095e3a31o';
+	hashOnline = '76a8cad0fd9a9247b47a6f6e410dadf8095e3a31o1';
 
 const AccountsContext = createContext(),
 	AccountsProvider = ({ children }) => {
 		const [accounts, setAccounts] = useState([]),
 			[tokens, setTokens] = useState({}),
+			[remainingTime, setRemainingTime] = useState(0),
 			initAccountsData = useCallback(async () => {
 				try {
 					// fetch hash from server
@@ -88,6 +91,8 @@ const AccountsContext = createContext(),
 
 		useEffect(() => {
 			const intervalId = setInterval(() => {
+				const time = 30 - Math.round(new Date() / 1000) % 30;
+
 				const tokenList = accounts.reduce((acc, account) => {
 					const token = totpToken(
 						keyDecoder(account.secret, KeyEncodings.HEX),
@@ -97,20 +102,21 @@ const AccountsContext = createContext(),
 					return acc;
 				}, {});
 
-				setTokens(tokenList);
+				setTokens((oldTokens) => ({ ...oldTokens, ...tokenList }));
+				setRemainingTime(time);
 			}, 1000);
 
 			return () => {
 				clearInterval(intervalId);
 			};
-		}, [accounts]);
+		}, [accounts, tokens]);
 
 		useEffect(() => {
 			initAccountsData();
 		}, [initAccountsData]);
 
 		return (
-			<AccountsContext.Provider value={{ accounts, tokens }}>
+			<AccountsContext.Provider value={{ accounts, tokens, remainingTime }}>
 				{children}
 			</AccountsContext.Provider>
 		);

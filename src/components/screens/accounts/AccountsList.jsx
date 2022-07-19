@@ -1,5 +1,6 @@
 import { FlatList, View } from 'react-native';
 
+import { isEmpty } from 'lodash';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import styled from 'styled-components/native';
 
@@ -13,11 +14,13 @@ export default function AccountsList () {
 
 	accounts = accounts.map((account) => ({ ...account, token: tokens[account.id] }));
 
+	if (isEmpty(tokens)) return null;
+
 	return (
 		<AccountsListLayout data={accounts} renderItem={AccountCard}
 			keyExtractor={(_item, index) => index.toString()}
-			ListHeaderComponent={ListPaddingView} ListHeaderComponentStyle={{ marginBottom: insets.bottom }}
-			ListFooterComponent={ListPaddingView} ListFooterComponentStyle={{ marginBottom: insets.top }}
+			ListHeaderComponent={ListPaddingTopHeader} ListHeaderComponentStyle={{ marginBottom: insets.top }}
+			ListFooterComponent={ListPaddingTopFooter} ListFooterComponentStyle={{ marginBottom: insets.bottom }}
 		/>
 	);
 }
@@ -26,6 +29,7 @@ const AccountsListLayout = styled(FlatList)`
 		flex: 1;
 		background-color: ${({ theme }) => theme.color.backgroundPrimary};
 	`,
-	ListPaddingView = styled(View)`
-		height: ${({ theme }) => theme.size.headerHeight + 10}px;
-	`;
+	ListPaddingTopHeader = styled(View)`
+		height: ${({ theme }) => theme.size.headerHeight + 5}px;
+	`,
+	ListPaddingTopFooter = styled(View)``;
