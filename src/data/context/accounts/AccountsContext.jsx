@@ -5,6 +5,8 @@ import { keyDecoder } from '@otplib/plugin-base32-enc-dec';
 import { createDigest } from '@otplib/plugin-crypto-js';
 import { getItemAsync, setItemAsync } from 'expo-secure-store';
 
+import { OS } from '#utils/constants';
+
 const secretCode = 'YCEUXZKPADTDHN75',
 	accountDataOnline = [
 		{
@@ -54,9 +56,14 @@ const AccountsContext = createContext(),
 	AccountsProvider = ({ children }) => {
 		const [accounts, setAccounts] = useState([]),
 			[tokens, setTokens] = useState({}),
-			[remainingTime, setRemainingTime] = useState(0),
+			[remainingTime, setRemainingTime] = useState(30),
 			initAccountsData = useCallback(async () => {
 				try {
+					if (OS.web) {
+						setAccounts(accountDataOnline.sort());
+						return;
+					}
+
 					// fetch hash from server
 					const hash = await getItemAsync('hash');
 

@@ -1,22 +1,9 @@
-import React from 'react';
-
-import { OS } from '#utils/constants';
+import MaterialIcon from '@expo/vector-icons/MaterialIcons';
+import { useTheme } from 'styled-components/native';
 
 export default function Icon (props) {
-	const { children } = props;
+	const theme = useTheme(),
+		{ name = 'broken_image', size = 32, color = theme.color.contentPrimary } = props;
 
-	if (OS.web) {
-		return (
-			<span style={{
-				width: children.props.width,
-				height: children.props.height,
-				backgroundColor: children.props.fill,
-				maskImage: `url(${children.type})`,
-				WebkitMaskImage: `url(${children.type})`,
-				WebkitMaskRepeat: 'no-repeat',
-			}}
-			/>
-		);
-	}
-	return React.cloneElement(children, { style: { width: children.props.width, height: children.props.height } });
+	return <MaterialIcon name={name} size={size} color={color} />;
 }

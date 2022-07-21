@@ -1,10 +1,15 @@
-import { Image, Text, View } from 'react-native';
+import { Image, Pressable, Text, View } from 'react-native';
 
+import { setStringAsync } from 'expo-clipboard';
 import styled from 'styled-components/native';
 
 export default function AccountCard ({ item: { icon, issuer, label, token = '' } }) {
+	const copyToClipboard = async () => {
+		await setStringAsync(token);
+	};
+
 	return (
-		<AccountCardLayout android_ripple={{ borderless: true }}>
+		<AccountCardLayout android_ripple={{ borderless: true }} onPress={copyToClipboard}>
 			<Header>
 				<IssuerLogo source={{ uri: icon }}
 					style={{ width: 40, height: 40 }}
@@ -23,11 +28,11 @@ export default function AccountCard ({ item: { icon, issuer, label, token = '' }
 	);
 }
 
-const AccountCardLayout = styled(View)`
-		height: 140px;
-		flex: 1;
+const AccountCardLayout = styled(Pressable)`
+		with: 100%;
+		height: 130px;
 		margin: 8px 16px 8px 16px;
-		padding: 14px;
+		padding: 8px 16px;
 		background-color: ${({ theme }) => theme.color.backgroundSecondary};
 		border-radius: 25px;
 		overflow: hidden;
@@ -48,12 +53,14 @@ const AccountCardLayout = styled(View)`
 	`,
 	Issuer = styled(Text)`
 		color: ${({ theme }) => theme.color.contentPrimary};
+		fontFamily: 'Poppins_400Regular'
 		font-size: 20px;
 		font-weight: bold;
-		margin-bottom: 1px;
+		margin-bottom: 0px;
 	`,
 	Label = styled(Text)`
 		color: ${({ theme }) => theme.color.contentSecondary};
+		fontFamily: 'Poppins_300Light'
 		font-size: 12px;
 	`,
 	TOtp = styled(View)`
@@ -61,7 +68,7 @@ const AccountCardLayout = styled(View)`
 		max-width: 350px;
 		flex: 1;
 		flex-direction: row;
-		align-items: flex-end;
+		align-items: center;
 		justify-content: space-between;
 	`,
 	TOtpChar = styled(Text)`
@@ -71,7 +78,7 @@ const AccountCardLayout = styled(View)`
 		background-color: ${({ theme }) => theme.color.backgroundPrimary};
 		color: ${({ theme }) => theme.color.contentPrimary};
 		font-size: 24px;
-		font-weight: 600;
+		font-weight: 400;
 		border-radius: 10px;
 		overflow: hidden;
 		align-items: center;

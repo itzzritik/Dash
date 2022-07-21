@@ -8,13 +8,13 @@ import Animated, {
 } from 'react-native-reanimated';
 import styled, { useTheme } from 'styled-components/native';
 
-export default function ProgressBar ({ progress = 0 }) {
+export default function ProgressBar ({ progress = defaultProgress }) {
 	const theme = useTheme(),
-		progressWidth = useSharedValue(0),
+		progressWidth = useSharedValue(defaultProgress),
 		progressStyle = useAnimatedStyle(() => {
 			let backgroundColor = theme.color.brandPrimary;
-			if (progress < 14) backgroundColor = theme.color.accentDanger;
-			else if (progress < 28) backgroundColor = theme.color.accentWarning;
+			if (progress < 17) backgroundColor = theme.color.accentDanger;
+			else if (progress < 34) backgroundColor = theme.color.accentWarning;
 			return { width: progressWidth.value + '%', backgroundColor };
 		});
 
@@ -33,7 +33,8 @@ export default function ProgressBar ({ progress = 0 }) {
 	);
 }
 
-const timingOption = { duration: 1000, ease: 'linear' },
+const defaultProgress = 100,
+	timingOption = { duration: 300, ease: 'easeInOut' },
 	ProgressBarLayout = styled(View)`
 		width: 100%;
 		height: 3px;
