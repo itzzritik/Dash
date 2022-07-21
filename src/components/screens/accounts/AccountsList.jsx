@@ -8,7 +8,7 @@ import { useAccounts } from '#data/context';
 
 import AccountCard from './AccountCard.jsx';
 
-export default function AccountsList () {
+export default function AccountsList ({ FabPadding }) {
 	let { accounts, tokens } = useAccounts(),
 		insets = useSafeAreaInsets();
 
@@ -20,7 +20,7 @@ export default function AccountsList () {
 		<AccountsListLayout data={accounts} renderItem={AccountCard}
 			keyExtractor={(_item, index) => index.toString()}
 			ListHeaderComponent={ListPaddingTopHeader} ListHeaderComponentStyle={{ marginBottom: insets.top }}
-			ListFooterComponent={ListPaddingTopFooter} ListFooterComponentStyle={{ marginBottom: insets.bottom }}
+			ListFooterComponent={ListPaddingTopFooter} ListFooterComponentStyle={{ marginBottom: FabPadding }}
 		/>
 	);
 }
