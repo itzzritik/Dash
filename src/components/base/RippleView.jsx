@@ -10,8 +10,9 @@ import Animated, {
 	useSharedValue,
 	withTiming,
 } from 'react-native-reanimated';
+import styled from 'styled-components/native';
 
-export default function RippleView ({ children, style, onPress }) {
+export default function RippleView ({ children, style, duration = 500, onPressIn, onPress }) {
 	const centerX = useSharedValue(0),
 		centerY = useSharedValue(0),
 		scale = useSharedValue(0),
@@ -23,6 +24,8 @@ export default function RippleView ({ children, style, onPress }) {
 
 		tapGestureEvent = useAnimatedGestureHandler({
 			onStart: (tapEvent) => {
+				if (onPressIn) runOnJS(onPressIn)();
+
 				const layout = measure(rippleRef);
 				width.value = layout.width;
 				height.value = layout.height;
@@ -32,13 +35,13 @@ export default function RippleView ({ children, style, onPress }) {
 
 				rippleOpacity.value = 1;
 				scale.value = 0;
-				scale.value = withTiming(1, { duration: 1000 });
+				scale.value = withTiming(1, { duration, ease: 'easeInOut' });
 			},
 			onActive: () => {
 				if (onPress) runOnJS(onPress)();
 			},
 			onFinish: () => {
-				rippleOpacity.value = withTiming(0);
+				rippleOpacity.value = withTiming(0, { duration: duration * 2 });
 			},
 		}),
 
@@ -63,11 +66,16 @@ export default function RippleView ({ children, style, onPress }) {
 	return (
 		<View ref={rippleRef} style={style}>
 			<TapGestureHandler onGestureEvent={tapGestureEvent}>
-				<Animated.View style={[{ flex: 1, overflow: 'hidden' }]}>
+				<RippleLayout>
 					{children}
 					<Animated.View style={rippleStyle} />
-				</Animated.View>
+				</RippleLayout>
 			</TapGestureHandler>
 		</View>
 	);
 }
+
+const RippleLayout = styled(Animated.View)`
+		flex: 1;
+		overflow: hidden;
+	`;

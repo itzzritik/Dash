@@ -8,21 +8,25 @@ import RippleView from '#components/base/RippleView';
 import { OS } from '#utils/constants';
 
 export default function AccountCard ({ item: { icon, issuer, color, label, token = '' } }) {
-	const copyToClipboard = async () => {
-		if (!OS.web) selectionAsync();
-		await setStringAsync(token);
-	};
+	const onPressIn = () => {
+			if (!OS.web) selectionAsync();
+		},
+		copyToClipboard = async () => {
+			await setStringAsync(token);
+		};
 
 	return (
-		<AccountCardLayout rippleColor={color} onPress={copyToClipboard}>
-			<Header>
-				<IssuerLogo source={{ uri: icon }} style={{ width: 40, height: 40 }} />
-				<HeaderTitle>
-					<Issuer>{issuer}</Issuer>
-					<Label>{label}</Label>
-				</HeaderTitle>
-			</Header>
-			<TOtp>{token.split('').map((otpChar, i) => <TOtpChar key={i}>{otpChar}</TOtpChar>)}</TOtp>
+		<AccountCardLayout rippleColor={color} onPressIn={onPressIn} onPress={copyToClipboard}>
+			<Container>
+				<Header>
+					<IssuerLogo source={{ uri: icon }} style={{ width: 40, height: 40 }} />
+					<HeaderTitle>
+						<Issuer>{issuer}</Issuer>
+						<Label>{label}</Label>
+					</HeaderTitle>
+				</Header>
+				<TOtp>{token.split('').map((otpChar, i) => <TOtpChar key={i}>{otpChar}</TOtpChar>)}</TOtp>
+			</Container>
 		</AccountCardLayout>
 	);
 }
@@ -30,11 +34,14 @@ export default function AccountCard ({ item: { icon, issuer, color, label, token
 const AccountCardLayout = styled(RippleView)`
 		with: 100%;
 		height: 130px;
-		margin: 8px 16px 8px 16px;
-		padding: 8px 16px;
+		margin: 8px 16px;
 		background-color: ${({ theme }) => theme.color.backgroundSecondary};
 		border-radius: 25px;
 		overflow: hidden;
+	`,
+	Container = styled(View)`
+		flex: 1;
+		padding: 8px 16px;
 	`,
 	Header = styled(View)`
 		flex: 1;
