@@ -1,34 +1,32 @@
-import { Image, Pressable, Text, View } from 'react-native';
+import { Image, Text, View } from 'react-native';
 
 import { setStringAsync } from 'expo-clipboard';
+import { selectionAsync } from 'expo-haptics';
 import styled from 'styled-components/native';
 
-export default function AccountCard ({ item: { icon, issuer, label, token = '' } }) {
+import RippleView from '#components/base/RippleView';
+
+export default function AccountCard ({ item: { icon, issuer, color, label, token = '' } }) {
 	const copyToClipboard = async () => {
+		selectionAsync();
 		await setStringAsync(token);
 	};
 
 	return (
-		<AccountCardLayout android_ripple={{ borderless: true }} onPress={copyToClipboard}>
+		<AccountCardLayout rippleColor={color} onPress={copyToClipboard}>
 			<Header>
-				<IssuerLogo source={{ uri: icon }}
-					style={{ width: 40, height: 40 }}
-				/>
+				<IssuerLogo source={{ uri: icon }} style={{ width: 40, height: 40 }} />
 				<HeaderTitle>
 					<Issuer>{issuer}</Issuer>
 					<Label>{label}</Label>
 				</HeaderTitle>
 			</Header>
-			<TOtp>
-				{token.split('').map((otpChar, i) =>
-					<TOtpChar key={i}>{otpChar}</TOtpChar>,
-				)}
-			</TOtp>
+			<TOtp>{token.split('').map((otpChar, i) => <TOtpChar key={i}>{otpChar}</TOtpChar>)}</TOtp>
 		</AccountCardLayout>
 	);
 }
 
-const AccountCardLayout = styled(Pressable)`
+const AccountCardLayout = styled(RippleView)`
 		with: 100%;
 		height: 130px;
 		margin: 8px 16px 8px 16px;
@@ -70,6 +68,7 @@ const AccountCardLayout = styled(Pressable)`
 		flex-direction: row;
 		align-items: center;
 		justify-content: space-between;
+		pointer-events: none;
 	`,
 	TOtpChar = styled(Text)`
 		width: 45px;

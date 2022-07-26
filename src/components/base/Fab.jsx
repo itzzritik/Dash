@@ -17,15 +17,16 @@ export default function Fab (props) {
 			setFabPadding,
 		} = props,
 		{ bottom } = useSafeAreaInsets(),
+		bottomPadding = clamp(bottom, 20, 35),
 
 		[fabSize, iconSize] = FAB_SIZES[size] ?? FAB_SIZES.default;
 
 	useEffect(() => {
-		setFabPadding(bottom * 1.5 + fabSize);
-	}, [bottom, fabSize, setFabPadding]);
+		setFabPadding(bottomPadding * 1.5 + fabSize);
+	}, [bottom, bottomPadding, fabSize, setFabPadding]);
 
 	return (
-		<FabLayout backgroundColor={backgroundColor} size={fabSize} bottom={bottom}>
+		<FabLayout backgroundColor={backgroundColor} size={fabSize} bottomPadding={bottomPadding}>
 			<Icon name={iconName} size={iconSize} color={foregroundColor} />
 		</FabLayout>
 	);
@@ -36,8 +37,8 @@ const FAB_SIZES = { default: [56, 28], mini: [50, 25] },
 		position: absolute;
 		width: ${({ size }) => size}px;
 		height: ${({ size }) => size}px;
-		bottom: ${({ bottom }) => clamp(bottom, 20, 35)}px;
-		right: ${({ bottom }) => clamp(bottom, 20, 25)}px;
+		bottom: ${({ bottomPadding }) => clamp(bottomPadding, 20, 35)}px;
+		right: ${({ bottomPadding }) => clamp(bottomPadding, 20, 25)}px;
 		border-radius: 999px;
 		background-color: ${({ backgroundColor }) => backgroundColor};
 		justify-content: center;

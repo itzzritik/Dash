@@ -13,11 +13,11 @@ const
 		contentSecondary: '#848C96',
 		contentTertiary: '#aaaaaa',
 
-		brandPrimary: '#4B90D3',
+		brandPrimary: '#42a5f5',
 
-		accentSuccess: '#6DA64B',
-		accentWarning: '#F6D36D',
-		accentDanger: '#E85955',
+		accentSuccess: '#4caf50',
+		accentWarning: '#ff9800',
+		accentDanger: '#ef5350',
 	},
 	darkTheme = {
 		backgroundPrimary: '#1E1F21',
@@ -28,11 +28,11 @@ const
 		contentSecondary: '#6C6E72',
 		contentTertiary: '#444444',
 
-		brandPrimary: '#4B90D3',
+		brandPrimary: '#42a5f5',
 
-		accentSuccess: '#6DA64B',
-		accentWarning: '#F6D36D',
-		accentDanger: '#E85955',
+		accentSuccess: '#4caf50',
+		accentWarning: '#ff9800',
+		accentDanger: '#ef5350',
 	},
 	size = {
 		headerHeight: 60,

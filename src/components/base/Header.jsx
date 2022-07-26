@@ -26,7 +26,7 @@ export default function Header () {
 					/>
 				</Avatar>
 			</MainContainer>
-			<ProgressBar progress={remainingTime * 100 / 30} />
+			<ProgressBar progress={(!remainingTime ? 30 : remainingTime) * 100 / 30} />
 		</HeaderLayout>
 	);
 }

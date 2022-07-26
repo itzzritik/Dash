@@ -10,6 +10,7 @@ import AccountsList from './AccountsList';
 
 export default function Accounts () {
 	const [FabPadding, setFabPadding] = useState();
+
 	return (
 		<AccountsDashboard>
 			<AccountsList FabPadding={FabPadding} />

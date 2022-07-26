@@ -7,12 +7,11 @@ import { getItemAsync, setItemAsync } from 'expo-secure-store';
 
 import { OS } from '#utils/constants';
 
-const secretCode = 'YCEUXZKPADTDHN75',
-	accountDataOnline = [
+const accountDataOnline = [
 		{
 			id: 'id1',
 			label: 'GitHub: Ritik Srivastava',
-			secret: secretCode,
+			secret: '64DABSHJHEF5YPCM',
 			issuer: 'GitHub',
 			color: '#28a745',
 			icon: 'https://asset.brandfetch.io/idZAyF9rlg/idd6TtF-kc.png',
@@ -20,7 +19,7 @@ const secretCode = 'YCEUXZKPADTDHN75',
 		{
 			id: 'id2',
 			label: 'Google: Ritik Srivastava',
-			secret: secretCode,
+			secret: 'DZ7RQ5P2JTPK7XVR',
 			issuer: 'Google',
 			color: '#4285F4',
 			icon: 'https://asset.brandfetch.io/id6O2oGzv-/idNEgS9h8q.jpeg',
@@ -28,7 +27,7 @@ const secretCode = 'YCEUXZKPADTDHN75',
 		{
 			id: 'id3',
 			label: 'Microsoft: Ritik Srivastava',
-			secret: secretCode,
+			secret: 'IUDQHEARNCV6BZBE',
 			issuer: 'Microsoft',
 			color: '#0067b8',
 			icon: 'https://asset.brandfetch.io/idchmboHEZ/idtz-2CKRH.jpeg',
@@ -36,7 +35,7 @@ const secretCode = 'YCEUXZKPADTDHN75',
 		{
 			id: 'id4',
 			label: 'Zomato: Ritik Srivastava',
-			secret: secretCode,
+			secret: 'XFMFDUUQHJJFZXGA',
 			issuer: 'Zomato',
 			color: '#d94148',
 			icon: 'https://asset.brandfetch.io/idEql8nEWn/idNLMWCnFH.png',
@@ -44,7 +43,7 @@ const secretCode = 'YCEUXZKPADTDHN75',
 		{
 			id: 'id5',
 			label: 'Heroku: Ritik Srivastava',
-			secret: secretCode,
+			secret: 'G6BUJETIOQPLXM6D',
 			issuer: 'Heroku',
 			color: '#4a4090',
 			icon: 'https://asset.brandfetch.io/idznrs7lk6/iddLvd3sUp.png',
@@ -56,7 +55,8 @@ const AccountsContext = createContext(),
 	AccountsProvider = ({ children }) => {
 		const [accounts, setAccounts] = useState([]),
 			[tokens, setTokens] = useState({}),
-			[remainingTime, setRemainingTime] = useState(30),
+			[remainingTime, setRemainingTime] = useState(),
+
 			initAccountsData = useCallback(async () => {
 				try {
 					if (OS.web) {
