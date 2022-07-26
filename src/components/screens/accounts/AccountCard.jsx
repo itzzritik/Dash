@@ -5,10 +5,11 @@ import { selectionAsync } from 'expo-haptics';
 import styled from 'styled-components/native';
 
 import RippleView from '#components/base/RippleView';
+import { OS } from '#utils/constants';
 
 export default function AccountCard ({ item: { icon, issuer, color, label, token = '' } }) {
 	const copyToClipboard = async () => {
-		selectionAsync();
+		if (!OS.web) selectionAsync();
 		await setStringAsync(token);
 	};
 
