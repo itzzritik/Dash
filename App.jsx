@@ -6,6 +6,7 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { StatusBar } from 'expo-status-bar';
 
 import Accounts from '#components/screens/accounts';
+import Scanner from '#components/screens/scanner';
 import GlobalContextProvider from '#data/context';
 
 // eslint-disable-next-line no-undef
@@ -27,6 +28,7 @@ export default function App () {
 			<NavigationContainer>
 				<Navigator initialRouteName='Accounts' screenOptions={{ headerShown: false }}>
 					<Screen name='Accounts' component={Accounts} />
+					<Screen name='Scanner' component={Scanner} />
 				</Navigator>
 			</NavigationContainer>
 			<StatusBar style='auto' animated networkActivityIndicatorVisible />

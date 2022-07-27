@@ -8,14 +8,14 @@ import Header from '#components/base/Header';
 
 import AccountsList from './AccountsList';
 
-export default function Accounts () {
+export default function Accounts ({ navigation }) {
 	const [FabPadding, setFabPadding] = useState();
 
 	return (
 		<AccountsDashboard>
 			<AccountsList FabPadding={FabPadding} />
 			<Header />
-			<Fab setFabPadding={setFabPadding} />
+			<Fab setFabPadding={setFabPadding} onPress={() => navigation.push('Scanner')} />
 		</AccountsDashboard>
 	);
 }

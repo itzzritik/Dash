@@ -15,6 +15,7 @@ export default function Fab (props) {
 			backgroundColor = theme.color.brandPrimary,
 			foregroundColor = '#ffffff',
 			setFabPadding,
+			onPress,
 		} = props,
 		{ bottom } = useSafeAreaInsets(),
 		bottomPadding = clamp(bottom, 20, 35),
@@ -26,7 +27,9 @@ export default function Fab (props) {
 	}, [bottom, bottomPadding, fabSize, setFabPadding]);
 
 	return (
-		<FabLayout backgroundColor={backgroundColor} size={fabSize} bottomPadding={bottomPadding} innerStyle={INNER_STYLE}>
+		<FabLayout backgroundColor={backgroundColor} size={fabSize} bottomPadding={bottomPadding}
+			innerStyle={INNER_STYLE} onPress={onPress}
+		>
 			<Icon name={iconName} size={iconSize} color={foregroundColor} />
 		</FabLayout>
 	);

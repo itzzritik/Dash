@@ -5,9 +5,9 @@ import { impactAsync, ImpactFeedbackStyle } from 'expo-haptics';
 import { OS } from '#utils/constants';
 
 const HAPTIC_STYLES = {
-	light: { ios: ImpactFeedbackStyle.Light, android: 15 },
-	medium: { ios: ImpactFeedbackStyle.Medium, android: 30 },
-	heavy: { ios: ImpactFeedbackStyle.Heavy, android: 45 },
+	light: { ios: ImpactFeedbackStyle.Light, android: 10 },
+	medium: { ios: ImpactFeedbackStyle.Medium, android: 20 },
+	heavy: { ios: ImpactFeedbackStyle.Heavy, android: 30 },
 };
 
 export const hapticFeedback = (strength = 'light') => {
