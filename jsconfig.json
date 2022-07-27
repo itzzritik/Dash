@@ -10,7 +10,7 @@
 			"#utils/*": ["./src/utils/*"],
 
 			"#components/*": ["./src/components/*"],
-			"#hooks/*": ["./src/components/hooks/*"]
+			"#hooks/*": ["src/data/hooks/*"]
 		}
 	}
 }

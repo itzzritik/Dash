@@ -1,7 +1,6 @@
 import { useState } from 'react';
 import { FlatList, View } from 'react-native';
 
-import { isEmpty } from 'lodash';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import styled, { useTheme } from 'styled-components/native';
 
@@ -22,8 +21,6 @@ export default function AccountsList ({ FabPadding }) {
 		};
 
 	accounts = accounts.map((account) => ({ ...account, token: tokens[account.id] }));
-
-	if (isEmpty(tokens)) return null;
 
 	return (
 		<AccountsListLayout data={accounts} renderItem={AccountCard}

@@ -2,7 +2,7 @@ import { createContext, useCallback, useContext, useEffect, useState } from 'rea
 
 import { getItemAsync, setItemAsync } from 'expo-secure-store';
 
-import useTokens from '#components/hooks/useTokens';
+import useTokens from '#data/hooks/useTokens';
 import { OS } from '#utils/constants';
 
 const accountDataOnline = [
