@@ -1,11 +1,8 @@
 import { createContext, useCallback, useContext, useEffect, useState } from 'react';
 
-import { totpToken, totpOptions, KeyEncodings } from '@otplib/core';
-import { keyDecoder } from '@otplib/plugin-base32-enc-dec';
-import { createDigest } from '@otplib/plugin-crypto-js';
 import { getItemAsync, setItemAsync } from 'expo-secure-store';
-import { isEmpty } from 'lodash';
 
+import useTokens from '#components/hooks/useTokens';
 import { OS } from '#utils/constants';
 
 const accountDataOnline = [
@@ -55,7 +52,7 @@ const accountDataOnline = [
 const AccountsContext = createContext(),
 	AccountsProvider = ({ children }) => {
 		const [accounts, setAccounts] = useState([]),
-			[tokens, setTokens] = useState({}),
+			tokens = useTokens(accounts),
 
 			initAccountsData = useCallback(async () => {
 				try {
@@ -94,26 +91,6 @@ const AccountsContext = createContext(),
 					console.log(err);
 				}
 			}, []);
-
-		useEffect(() => {
-			const intervalId = setInterval(() => {
-				const time = 30 - Math.round(new Date() / 1000) % 30;
-
-				if (time > 28 || time < 2 || isEmpty(tokens)) {
-					const tokenList = accounts.reduce((acc, account) => {
-						const token = totpToken(
-							keyDecoder(account.secret, KeyEncodings.HEX),
-							totpOptions({ createDigest, encoding: KeyEncodings.HEX }),
-						);
-						acc[account.id] = token;
-						return acc;
-					}, {});
-					setTokens((oldTokens) => ({ ...oldTokens, ...tokenList }));
-				}
-			}, 1000);
-
-			return () => clearInterval(intervalId);
-		}, [accounts, tokens]);
 
 		useEffect(() => {
 			initAccountsData();

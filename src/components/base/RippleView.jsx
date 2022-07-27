@@ -12,7 +12,7 @@ import Animated, {
 	withTiming,
 } from 'react-native-reanimated';
 
-import { hapticFeedback } from '#utils/haptics';
+import { hapticFeedback } from '#utils/system/haptics';
 
 export default function RippleView (props) {
 	const { duration = 500, haptics = true, rippleColor = 'black',

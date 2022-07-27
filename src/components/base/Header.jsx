@@ -5,6 +5,8 @@ import { BlurView } from 'expo-blur';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import styled, { useTheme } from 'styled-components/native';
 
+import { totpTime } from '#utils/system/totpTime';
+
 import ProgressBar from './ProgressBar';
 
 export default function Header () {
@@ -16,7 +18,7 @@ export default function Header () {
 
 	useEffect(() => {
 		const intervalId = setInterval(() => {
-			setRemainingTime(30 - Math.round(new Date() / 1000) % 30);
+			setRemainingTime(totpTime());
 		}, 1000);
 
 		return () => clearInterval(intervalId);
