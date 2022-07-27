@@ -1,7 +1,9 @@
 import { View } from 'react-native';
 
+import { selectionAsync } from 'expo-haptics';
 import { TapGestureHandler } from 'react-native-gesture-handler';
 import Animated, {
+	Easing,
 	measure,
 	runOnJS,
 	useAnimatedGestureHandler,
@@ -10,10 +12,13 @@ import Animated, {
 	useSharedValue,
 	withTiming,
 } from 'react-native-reanimated';
-import styled from 'styled-components/native';
 
-export default function RippleView ({ children, style, duration = 500, onPressIn, onPress }) {
-	const centerX = useSharedValue(0),
+import { OS } from '#utils/constants';
+
+export default function RippleView (props) {
+	const { children, style, innerStyle, duration = 500, vibrate = true, onPressIn, onPress } = props,
+
+		centerX = useSharedValue(0),
 		centerY = useSharedValue(0),
 		scale = useSharedValue(0),
 
@@ -24,8 +29,9 @@ export default function RippleView ({ children, style, duration = 500, onPressIn
 
 		tapGestureEvent = useAnimatedGestureHandler({
 			onStart: (tapEvent) => {
-				if (onPressIn) runOnJS(onPressIn)();
+				if (vibrate && !OS.web) runOnJS(selectionAsync)();
 
+				// TODO - remove measure dependency to be able to work on web
 				const layout = measure(rippleRef);
 				width.value = layout.width;
 				height.value = layout.height;
@@ -35,13 +41,15 @@ export default function RippleView ({ children, style, duration = 500, onPressIn
 
 				rippleOpacity.value = 1;
 				scale.value = 0;
-				scale.value = withTiming(1, { duration, ease: 'easeInOut' });
+				scale.value = withTiming(1, { duration, easing: Easing.inOut(Easing.ease) });
+
+				if (onPressIn) runOnJS(onPressIn)();
 			},
 			onActive: () => {
 				if (onPress) runOnJS(onPress)();
 			},
 			onFinish: () => {
-				rippleOpacity.value = withTiming(0, { duration: duration * 2 });
+				rippleOpacity.value = withTiming(0, { duration: duration * 1.8, easing: Easing.inOut(Easing.ease) });
 			},
 		}),
 
@@ -66,16 +74,11 @@ export default function RippleView ({ children, style, duration = 500, onPressIn
 	return (
 		<View ref={rippleRef} style={style}>
 			<TapGestureHandler onGestureEvent={tapGestureEvent}>
-				<RippleLayout>
+				<Animated.View style={[innerStyle, { flex: 1, overflow: 'hidden' }]}>
 					{children}
 					<Animated.View style={rippleStyle} />
-				</RippleLayout>
+				</Animated.View>
 			</TapGestureHandler>
 		</View>
 	);
 }
-
-const RippleLayout = styled(Animated.View)`
-		flex: 1;
-		overflow: hidden;
-	`;

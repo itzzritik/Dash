@@ -1,11 +1,11 @@
 import { useEffect } from 'react';
-import { Pressable } from 'react-native';
 
 import { clamp } from 'lodash';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import styled, { useTheme } from 'styled-components/native';
 
 import Icon from './Icon';
+import RippleView from './RippleView';
 
 export default function Fab (props) {
 	const theme = useTheme(),
@@ -26,21 +26,24 @@ export default function Fab (props) {
 	}, [bottom, bottomPadding, fabSize, setFabPadding]);
 
 	return (
-		<FabLayout backgroundColor={backgroundColor} size={fabSize} bottomPadding={bottomPadding}>
+		<FabLayout backgroundColor={backgroundColor} size={fabSize} bottomPadding={bottomPadding} innerStyle={INNER_STYLE}>
 			<Icon name={iconName} size={iconSize} color={foregroundColor} />
 		</FabLayout>
 	);
 }
 
 const FAB_SIZES = { default: [56, 28], mini: [50, 25] },
-	FabLayout = styled(Pressable)`
+	INNER_STYLE = {
+		justifyContent: 'center',
+		alignItems: 'center',
+	},
+	FabLayout = styled(RippleView)`
 		position: absolute;
 		width: ${({ size }) => size}px;
 		height: ${({ size }) => size}px;
 		bottom: ${({ bottomPadding }) => clamp(bottomPadding, 20, 35)}px;
 		right: ${({ bottomPadding }) => clamp(bottomPadding, 20, 25)}px;
-		border-radius: 999px;
 		background-color: ${({ backgroundColor }) => backgroundColor};
-		justify-content: center;
-		align-items: center;
+		border-radius: 999px;
+		overflow: hidden;
 	`;

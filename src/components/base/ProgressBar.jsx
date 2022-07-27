@@ -34,7 +34,7 @@ export default function ProgressBar ({ progress = defaultProgress }) {
 }
 
 const defaultProgress = 100,
-	timingOption = { duration: 300, ease: 'easeInOut' },
+	timingOption = { duration: 300 },
 	ProgressBarLayout = styled(View)`
 		width: 100%;
 		height: 3px;

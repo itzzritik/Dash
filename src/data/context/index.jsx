@@ -1,6 +1,7 @@
 import React from 'react';
 import { useColorScheme } from 'react-native';
 
+import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { ThemeProvider } from 'styled-components/native';
 
@@ -14,9 +15,11 @@ const GlobalContextProvider = ({ children }) => {
 	return (
 		<SafeAreaProvider>
 			<ThemeProvider theme={getTheme(colorScheme)}>
-				<AccountsProvider>
-					{children}
-				</AccountsProvider>
+				<GestureHandlerRootView style={{ flex: 1 }}>
+					<AccountsProvider>
+						{children}
+					</AccountsProvider>
+				</GestureHandlerRootView>
 			</ThemeProvider>
 		</SafeAreaProvider>
 	);

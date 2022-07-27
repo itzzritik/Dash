@@ -1,32 +1,26 @@
 import { Image, Text, View } from 'react-native';
 
 import { setStringAsync } from 'expo-clipboard';
-import { selectionAsync } from 'expo-haptics';
 import styled from 'styled-components/native';
 
 import RippleView from '#components/base/RippleView';
-import { OS } from '#utils/constants';
+import { padding } from '#utils/style';
 
 export default function AccountCard ({ item: { icon, issuer, color, label, token = '' } }) {
-	const onPressIn = () => {
-			if (!OS.web) selectionAsync();
-		},
-		copyToClipboard = async () => {
-			await setStringAsync(token);
-		};
+	const copyToClipboard = async () => {
+		await setStringAsync(token);
+	};
 
 	return (
-		<AccountCardLayout rippleColor={color} onPressIn={onPressIn} onPress={copyToClipboard}>
-			<Container>
-				<Header>
-					<IssuerLogo source={{ uri: icon }} style={{ width: 40, height: 40 }} />
-					<HeaderTitle>
-						<Issuer>{issuer}</Issuer>
-						<Label>{label}</Label>
-					</HeaderTitle>
-				</Header>
-				<TOtp>{token.split('').map((otpChar, i) => <TOtpChar key={i}>{otpChar}</TOtpChar>)}</TOtp>
-			</Container>
+		<AccountCardLayout rippleColor={color} onPress={copyToClipboard} innerStyle={{ ...padding(8, 16) }}>
+			<Header>
+				<IssuerLogo source={{ uri: icon }} style={{ width: 40, height: 40 }} />
+				<HeaderTitle>
+					<Issuer>{issuer}</Issuer>
+					<Label>{label}</Label>
+				</HeaderTitle>
+			</Header>
+			<TOtp>{token.split('').map((otpChar, i) => <TOtpChar key={i}>{otpChar}</TOtpChar>)}</TOtp>
 		</AccountCardLayout>
 	);
 }
@@ -38,10 +32,6 @@ const AccountCardLayout = styled(RippleView)`
 		background-color: ${({ theme }) => theme.color.backgroundSecondary};
 		border-radius: 25px;
 		overflow: hidden;
-	`,
-	Container = styled(View)`
-		flex: 1;
-		padding: 8px 16px;
 	`,
 	Header = styled(View)`
 		flex: 1;
