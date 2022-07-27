@@ -6,13 +6,13 @@ import styled from 'styled-components/native';
 import RippleView from '#components/base/RippleView';
 import { padding } from '#utils/style';
 
-export default function AccountCard ({ item: { icon, issuer, color, label, token = '' } }) {
+export default function AccountCard ({ item: { icon, issuer, label, token = '' } }) {
 	const copyToClipboard = async () => {
 		await setStringAsync(token);
 	};
 
 	return (
-		<AccountCardLayout rippleColor={color} onPress={copyToClipboard} innerStyle={{ ...padding(8, 16) }}>
+		<AccountCardLayout onPress={copyToClipboard} innerStyle={{ ...padding(8, 16) }}>
 			<Header>
 				<IssuerLogo source={{ uri: icon }} style={{ width: 40, height: 40 }} />
 				<HeaderTitle>

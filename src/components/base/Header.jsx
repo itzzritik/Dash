@@ -1,19 +1,26 @@
+import { useEffect, useState } from 'react';
 import { Image, Pressable, Text, View } from 'react-native';
 
 import { BlurView } from 'expo-blur';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import styled, { useTheme } from 'styled-components/native';
 
-import { useAccounts } from '#data/context';
-
 import ProgressBar from './ProgressBar';
 
 export default function Header () {
 	const theme = useTheme(),
 		insets = useSafeAreaInsets(),
-		{ remainingTime } = useAccounts(),
+		[remainingTime, setRemainingTime] = useState(),
 
 		user = { avatar: 'https://lh3.googleusercontent.com/ogw/AOh-ky2XlM-UaX8itCvHPZr6gayzFIK0bxrb3oIO3xuh6qo=s64-c-mo' };
+
+	useEffect(() => {
+		const intervalId = setInterval(() => {
+			setRemainingTime(30 - Math.round(new Date() / 1000) % 30);
+		}, 1000);
+
+		return () => clearInterval(intervalId);
+	}, []);
 
 	return (
 		<HeaderLayout top={insets.top} intensity={theme.general.blur} tint={theme.name === 'light' ? 'light' : 'dark'}>

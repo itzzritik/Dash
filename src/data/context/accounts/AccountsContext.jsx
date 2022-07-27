@@ -4,6 +4,7 @@ import { totpToken, totpOptions, KeyEncodings } from '@otplib/core';
 import { keyDecoder } from '@otplib/plugin-base32-enc-dec';
 import { createDigest } from '@otplib/plugin-crypto-js';
 import { getItemAsync, setItemAsync } from 'expo-secure-store';
+import { isEmpty } from 'lodash';
 
 import { OS } from '#utils/constants';
 
@@ -29,7 +30,7 @@ const accountDataOnline = [
 			label: 'Microsoft: Ritik Srivastava',
 			secret: 'IUDQHEARNCV6BZBE',
 			issuer: 'Microsoft',
-			color: '#0067b8',
+			color: '#00a1f1',
 			icon: 'https://asset.brandfetch.io/idchmboHEZ/idtz-2CKRH.jpeg',
 		},
 		{
@@ -55,7 +56,6 @@ const AccountsContext = createContext(),
 	AccountsProvider = ({ children }) => {
 		const [accounts, setAccounts] = useState([]),
 			[tokens, setTokens] = useState({}),
-			[remainingTime, setRemainingTime] = useState(),
 
 			initAccountsData = useCallback(async () => {
 				try {
@@ -99,22 +99,20 @@ const AccountsContext = createContext(),
 			const intervalId = setInterval(() => {
 				const time = 30 - Math.round(new Date() / 1000) % 30;
 
-				const tokenList = accounts.reduce((acc, account) => {
-					const token = totpToken(
-						keyDecoder(account.secret, KeyEncodings.HEX),
-						totpOptions({ createDigest, encoding: KeyEncodings.HEX }),
-					);
-					acc[account.id] = token;
-					return acc;
-				}, {});
-
-				setTokens((oldTokens) => ({ ...oldTokens, ...tokenList }));
-				setRemainingTime(time);
+				if (time > 28 || time < 2 || isEmpty(tokens)) {
+					const tokenList = accounts.reduce((acc, account) => {
+						const token = totpToken(
+							keyDecoder(account.secret, KeyEncodings.HEX),
+							totpOptions({ createDigest, encoding: KeyEncodings.HEX }),
+						);
+						acc[account.id] = token;
+						return acc;
+					}, {});
+					setTokens((oldTokens) => ({ ...oldTokens, ...tokenList }));
+				}
 			}, 1000);
 
-			return () => {
-				clearInterval(intervalId);
-			};
+			return () => clearInterval(intervalId);
 		}, [accounts, tokens]);
 
 		useEffect(() => {
@@ -122,7 +120,7 @@ const AccountsContext = createContext(),
 		}, [initAccountsData]);
 
 		return (
-			<AccountsContext.Provider value={{ accounts, tokens, remainingTime }}>
+			<AccountsContext.Provider value={{ accounts, tokens }}>
 				{children}
 			</AccountsContext.Provider>
 		);

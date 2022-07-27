@@ -1,5 +1,7 @@
+import { useMemo } from 'react';
 import { View } from 'react-native';
 
+import Color from 'color';
 import { selectionAsync } from 'expo-haptics';
 import { TapGestureHandler } from 'react-native-gesture-handler';
 import Animated, {
@@ -14,7 +16,8 @@ import Animated, {
 import { OS } from '#utils/constants';
 
 export default function RippleView (props) {
-	const { children, style, innerStyle, duration = 500, vibrate = true, onPressIn, onPress } = props,
+	const { duration = 500, vibrate = true, rippleColor = 'black',
+			children, style, innerStyle, onPressIn, onPress } = props,
 
 		centerX = useSharedValue(0),
 		centerY = useSharedValue(0),
@@ -23,6 +26,8 @@ export default function RippleView (props) {
 		width = useSharedValue(0),
 		height = useSharedValue(0),
 		rippleOpacity = useSharedValue(1),
+
+		rippleColorRGB = useMemo(() => Color(rippleColor).array().reduce((acc, i) => acc += (i + ','), ''), [rippleColor]),
 
 		onLayout = (event) => {
 			width.value = event.nativeEvent.layout.width;
@@ -63,7 +68,7 @@ export default function RippleView (props) {
 				height: circleRadius * 2,
 				borderRadius: circleRadius,
 				opacity: rippleOpacity.value,
-				backgroundColor: 'rgba(0, 0, 0, 0.2)',
+				backgroundColor: `rgba(${rippleColorRGB} 0.2)`,
 				transform: [{ translateX }, { translateY }, { scale: scale.value }],
 			};
 		});
