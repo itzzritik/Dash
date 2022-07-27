@@ -2,7 +2,6 @@ import { useMemo } from 'react';
 import { View } from 'react-native';
 
 import Color from 'color';
-import { selectionAsync } from 'expo-haptics';
 import { TapGestureHandler } from 'react-native-gesture-handler';
 import Animated, {
 	Easing,
@@ -13,10 +12,10 @@ import Animated, {
 	withTiming,
 } from 'react-native-reanimated';
 
-import { OS } from '#utils/constants';
+import { hapticFeedback } from '#utils/haptics';
 
 export default function RippleView (props) {
-	const { duration = 500, vibrate = true, rippleColor = 'black',
+	const { duration = 500, haptics = true, rippleColor = 'black',
 			children, style, innerStyle, onPressIn, onPress } = props,
 
 		centerX = useSharedValue(0),
@@ -36,7 +35,7 @@ export default function RippleView (props) {
 
 		tapGestureEvent = useAnimatedGestureHandler({
 			onStart: (tapEvent) => {
-				if (vibrate && !OS.web) runOnJS(selectionAsync)();
+				if (haptics) runOnJS(hapticFeedback)();
 
 				centerX.value = tapEvent.x;
 				centerY.value = tapEvent.y;
