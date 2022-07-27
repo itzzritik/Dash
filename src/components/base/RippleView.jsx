@@ -4,10 +4,8 @@ import { selectionAsync } from 'expo-haptics';
 import { TapGestureHandler } from 'react-native-gesture-handler';
 import Animated, {
 	Easing,
-	measure,
 	runOnJS,
 	useAnimatedGestureHandler,
-	useAnimatedRef,
 	useAnimatedStyle,
 	useSharedValue,
 	withTiming,
@@ -22,19 +20,18 @@ export default function RippleView (props) {
 		centerY = useSharedValue(0),
 		scale = useSharedValue(0),
 
-		rippleRef = useAnimatedRef(),
 		width = useSharedValue(0),
 		height = useSharedValue(0),
 		rippleOpacity = useSharedValue(1),
 
+		onLayout = (event) => {
+			width.value = event.nativeEvent.layout.width;
+			width.height = event.nativeEvent.layout.height;
+		},
+
 		tapGestureEvent = useAnimatedGestureHandler({
 			onStart: (tapEvent) => {
 				if (vibrate && !OS.web) runOnJS(selectionAsync)();
-
-				// TODO - remove measure dependency to be able to work on web
-				const layout = measure(rippleRef);
-				width.value = layout.width;
-				height.value = layout.height;
 
 				centerX.value = tapEvent.x;
 				centerY.value = tapEvent.y;
@@ -66,13 +63,13 @@ export default function RippleView (props) {
 				height: circleRadius * 2,
 				borderRadius: circleRadius,
 				opacity: rippleOpacity.value,
-				backgroundColor: 'rgba(0,0,0,0.2)',
+				backgroundColor: 'rgba(0, 0, 0, 0.2)',
 				transform: [{ translateX }, { translateY }, { scale: scale.value }],
 			};
 		});
 
 	return (
-		<View ref={rippleRef} style={style}>
+		<View style={style} onLayout={onLayout}>
 			<TapGestureHandler onGestureEvent={tapGestureEvent}>
 				<Animated.View style={[innerStyle, { flex: 1, overflow: 'hidden' }]}>
 					{children}
