@@ -28,7 +28,7 @@ export default function Scanner ({ navigation }) {
 
 	return (
 		<ScannerLayout>
-			{hasPermission && false && <ViewFinder onBarCodeScanned={handleBarCodeScanned} />}
+			{hasPermission && <ViewFinder onBarCodeScanned={handleBarCodeScanned} />}
 			<BarcodeOverlay />
 			<Header goBack={navigation.goBack} />
 		</ScannerLayout>
@@ -37,7 +37,7 @@ export default function Scanner ({ navigation }) {
 
 const ScannerLayout = styled(View)`
 		flex: 1;
-		background-color: white;
+		background-color: black;
 	`,
 	ViewFinder = styled(Camera)`
 		flex: 1;

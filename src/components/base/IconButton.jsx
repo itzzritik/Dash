@@ -9,27 +9,29 @@ export default function IconButton (props) {
 			backgroundColor = 'transparent',
 			round,
 			style,
+			innerStyle,
+			blur,
 			onPress,
 		} = props,
 
 		DEFAULT_STYLE = {
 			backgroundColor,
-			borderRadius: round ? '999px' : '5px',
+			borderRadius: round ? 999 : 5,
 			justifyContent: 'center',
 			alignItems: 'center',
 			overflow: 'hidden',
+		},
+		INNER_STYLE = {
+			justifyContent: 'center',
+			alignItems: 'center',
+			...innerStyle,
 		};
 
 	return (
-		<RippleView round={round} onPress={onPress} backgroundColor={backgroundColor}
+		<RippleView round={round} onPress={onPress} backgroundColor={backgroundColor} blur={blur ? 20 : undefined}
 			innerStyle={INNER_STYLE} style={[DEFAULT_STYLE, style]}
 		>
 			<Icon name={iconName} color={iconColor} size={iconSize} />
 		</RippleView>
 	);
 }
-
-const INNER_STYLE = {
-	justifyContent: 'center',
-	alignItems: 'center',
-};

@@ -10,7 +10,7 @@ export default function Header ({ goBack }) {
 		insets = useSafeAreaInsets();
 	return (
 		<HeaderLayout top={insets.top} intensity={theme.general.blur / 2} tint={theme.name === 'light' ? 'light' : 'dark'}>
-			<Back iconName='left' onPress={goBack} />
+			<Back iconName='left' onPress={goBack} innerStyle={{ marginRight: 3 }} round blur />
 		</HeaderLayout>
 	);
 }
@@ -21,9 +21,10 @@ const HeaderLayout = styled(View)`
 		width: 100%;
 		height: ${({ theme, top }) => theme.size.headerHeight + top}px;
 		flex-direction: column;
-		padding-top: ${({ top }) => top}px;
+		padding: ${({ top }) => top}px 5px 0 5px;
 	`,
 	Back = styled(IconButton)`
 		width: ${({ theme }) => theme.size.headerHeight}px;
 		height: ${({ theme }) => theme.size.headerHeight}px;
+		transform: scale(0.8);
 	`;

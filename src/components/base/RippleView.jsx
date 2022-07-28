@@ -2,6 +2,7 @@ import { useMemo } from 'react';
 import { View } from 'react-native';
 
 import Color from 'color';
+import { BlurView } from 'expo-blur';
 import { TapGestureHandler } from 'react-native-gesture-handler';
 import Animated, {
 	Easing,
@@ -16,7 +17,7 @@ import { hapticFeedback } from '#utils/system/haptics';
 
 export default function RippleView (props) {
 	const { duration = 500, haptics = true, rippleColor = 'black',
-			children, style, innerStyle, onPressIn, onPress } = props,
+			children, style, blur, innerStyle, onPressIn, onPress } = props,
 
 		centerX = useSharedValue(0),
 		centerY = useSharedValue(0),
@@ -26,6 +27,7 @@ export default function RippleView (props) {
 		height = useSharedValue(0),
 		rippleOpacity = useSharedValue(1),
 
+		RootView = blur ? BlurView : View,
 		rippleColorRGB = useMemo(() => Color(rippleColor).array().reduce((acc, i) => acc += (i + ','), ''), [rippleColor]),
 
 		onLayout = (event) => {
@@ -73,13 +75,13 @@ export default function RippleView (props) {
 		});
 
 	return (
-		<View style={style} onLayout={onLayout}>
+		<RootView intensity={blur} style={style} onLayout={onLayout}>
 			<TapGestureHandler onGestureEvent={tapGestureEvent}>
 				<Animated.View style={[innerStyle, { flex: 1, width: '100%', height: '100%', overflow: 'hidden' }]}>
 					{children}
 					<Animated.View style={rippleStyle} />
 				</Animated.View>
 			</TapGestureHandler>
-		</View>
+		</RootView>
 	);
 }
