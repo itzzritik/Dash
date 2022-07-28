@@ -10,7 +10,7 @@ import RippleView from './RippleView';
 export default function Fab (props) {
 	const theme = useTheme(),
 		{
-			iconName = 'add',
+			iconName = 'plus',
 			size = 'default',
 			backgroundColor = theme.color.brandPrimary,
 			foregroundColor = '#ffffff',

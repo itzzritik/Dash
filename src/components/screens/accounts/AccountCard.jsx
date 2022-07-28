@@ -16,13 +16,13 @@ export default function AccountCard ({ item: { icon, issuer, label, token } }) {
 			{
 				token &&
 				<>
-					<Header>
+					<CardHeader>
 						<IssuerLogo source={{ uri: icon }} style={{ width: 40, height: 40 }} />
 						<HeaderTitle>
 							<Issuer>{issuer}</Issuer>
 							<Label>{label}</Label>
 						</HeaderTitle>
-					</Header>
+					</CardHeader>
 					<TOtp>{token.split('').map((otpChar, i) => <TOtpChar key={i}>{otpChar}</TOtpChar>)}</TOtp>
 				</>
 			}
@@ -38,7 +38,7 @@ const AccountCardLayout = styled(RippleView)`
 		border-radius: 25px;
 		overflow: hidden;
 	`,
-	Header = styled(View)`
+	CardHeader = styled(View)`
 		flex: 1;
 		flex-direction: row;
 		align-items: center;

@@ -10,14 +10,16 @@ import AccountCard from './AccountCard.jsx';
 
 export default function AccountsList ({ FabPadding }) {
 	let [refreshing, setRefreshing] = useState(false),
+
 		{ accounts, tokens } = useAccounts(),
 		theme = useTheme(),
 		insets = useSafeAreaInsets(),
+
 		offsetTop = theme.size.headerHeight + insets.top + 6,
 
 		onRefresh = () => {
 			setRefreshing(true);
-			setTimeout(() => setRefreshing(false), 2000);
+			setTimeout(() => setRefreshing(false), 1000);
 		};
 
 	accounts = accounts.map((account) => ({ ...account, token: tokens[account.id] }));

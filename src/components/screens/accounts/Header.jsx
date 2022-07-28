@@ -4,9 +4,8 @@ import { BlurView } from 'expo-blur';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import styled, { useTheme } from 'styled-components/native';
 
+import ProgressBar from '#components/base/ProgressBar';
 import useTotpTime from '#data/hooks/useTotpTime';
-
-import ProgressBar from './ProgressBar';
 
 export default function Header () {
 	const theme = useTheme(),

@@ -1,15 +1,35 @@
-import { View } from 'react-native';
+import Icon from './Icon';
+import RippleView from './RippleView';
 
-import styled from 'styled-components/native';
+export default function IconButton (props) {
+	const {
+			iconColor = '#ffffff',
+			iconName,
+			iconSize = 26,
+			backgroundColor = 'transparent',
+			round,
+			style,
+			onPress,
+		} = props,
 
-export default function IconButton () {
+		DEFAULT_STYLE = {
+			backgroundColor,
+			borderRadius: round ? '999px' : '5px',
+			justifyContent: 'center',
+			alignItems: 'center',
+			overflow: 'hidden',
+		};
 
 	return (
-		<IconButtonLayout />
+		<RippleView round={round} onPress={onPress} backgroundColor={backgroundColor}
+			innerStyle={INNER_STYLE} style={[DEFAULT_STYLE, style]}
+		>
+			<Icon name={iconName} color={iconColor} size={iconSize} />
+		</RippleView>
 	);
 }
 
-const IconButtonLayout = styled(View)`
-		flex: 1;
-		background-color: ${({ theme }) => theme.color.backgroundPrimary};
-	`;
+const INNER_STYLE = {
+	justifyContent: 'center',
+	alignItems: 'center',
+};

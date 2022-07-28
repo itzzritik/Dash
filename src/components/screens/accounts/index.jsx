@@ -4,9 +4,9 @@ import { View } from 'react-native';
 import styled from 'styled-components/native';
 
 import Fab from '#components/base/Fab';
-import Header from '#components/base/Header';
 
 import AccountsList from './AccountsList';
+import Header from './Header.jsx';
 
 export default function Accounts ({ navigation }) {
 	const [FabPadding, setFabPadding] = useState();
