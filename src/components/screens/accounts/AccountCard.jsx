@@ -4,7 +4,6 @@ import { setStringAsync } from 'expo-clipboard';
 import styled from 'styled-components/native';
 
 import RippleView from '#components/base/RippleView';
-import { padding } from '#utils/style';
 
 export default function AccountCard ({ item: { icon, issuer, label, token } }) {
 	const copyToClipboard = async () => {
@@ -12,7 +11,7 @@ export default function AccountCard ({ item: { icon, issuer, label, token } }) {
 	};
 
 	return (
-		<AccountCardLayout onPress={copyToClipboard} innerStyle={{ ...padding(8, 16) }}>
+		<AccountCardLayout onPress={copyToClipboard}>
 			{
 				token &&
 				<>
@@ -34,6 +33,7 @@ const AccountCardLayout = styled(RippleView)`
 		with: 100%;
 		height: 130px;
 		margin: 8px 16px;
+		padding: 8px 16px;
 		background-color: ${({ theme }) => theme.color.backgroundSecondary};
 		border-radius: 25px;
 		overflow: hidden;

@@ -3,6 +3,7 @@ import { View } from 'react-native';
 
 import { BarCodeScanner } from 'expo-barcode-scanner';
 import { Camera } from 'expo-camera';
+import { StatusBar } from 'expo-status-bar';
 import styled from 'styled-components/native';
 
 import BarcodeOverlay from './BarcodeOverlay.jsx';
@@ -31,6 +32,7 @@ export default function Scanner ({ navigation }) {
 			{hasPermission && <ViewFinder onBarCodeScanned={handleBarCodeScanned} />}
 			<BarcodeOverlay />
 			<Header goBack={navigation.goBack} />
+			<StatusBar style='light' animated />
 		</ScannerLayout>
 	);
 }

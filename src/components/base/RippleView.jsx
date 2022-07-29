@@ -12,12 +12,13 @@ import Animated, {
 	useSharedValue,
 	withTiming,
 } from 'react-native-reanimated';
+import styled from 'styled-components/native';
 
 import { hapticFeedback } from '#utils/system/haptics';
 
 export default function RippleView (props) {
 	const { duration = 500, haptics = true, rippleColor = 'black',
-			children, style, blur, innerStyle, onPressIn, onPress } = props,
+			children, style, blur, onPressIn, onPress } = props,
 
 		centerX = useSharedValue(0),
 		centerY = useSharedValue(0),
@@ -76,12 +77,18 @@ export default function RippleView (props) {
 
 	return (
 		<RootView intensity={blur} style={style} onLayout={onLayout}>
+			{children}
 			<TapGestureHandler onGestureEvent={tapGestureEvent}>
-				<Animated.View style={[innerStyle, { flex: 1, width: '100%', height: '100%', overflow: 'hidden' }]}>
-					{children}
-					<Animated.View style={rippleStyle} />
-				</Animated.View>
+				<Ripple><Animated.View style={rippleStyle} /></Ripple>
 			</TapGestureHandler>
 		</RootView>
 	);
 }
+
+const Ripple = styled(Animated.View)`
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+`;
