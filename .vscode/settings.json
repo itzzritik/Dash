@@ -20,8 +20,10 @@
 		"borderless",
 		"closesquareo",
 		"Haptics",
+		"Ionicons",
 		"otplib",
 		"Pressable",
+		"smileo",
 		"TOTP"
 	]
 }

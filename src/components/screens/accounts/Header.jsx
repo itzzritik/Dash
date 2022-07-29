@@ -48,7 +48,7 @@ const HeaderLayout = styled(BlurView)`
 		height: ${({ theme }) => theme.size.headerHeight}px;
 		color: ${({ theme }) => theme.color.contentPrimary};
 		line-height: ${({ theme }) => theme.size.headerHeight}px;
-		fontFamily: 'Poppins_200ExtraLight'
+		font-family: 'Poppins_200ExtraLight'
 		font-size: 18px;
 		font-weight: 100;
 		text-align: center;
@@ -60,7 +60,7 @@ const HeaderLayout = styled(BlurView)`
 		align-items: center;
 	`,
 	TitleText = styled(Text)`
-		fontFamily: 'Poppins_400Regular'
+		font-family: 'Poppins_400Regular'
 		font-size: 18px;
 		font-weight: bold;
 		color: ${({ theme }) => theme.color.contentPrimary};

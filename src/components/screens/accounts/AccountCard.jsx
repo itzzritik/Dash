@@ -54,14 +54,14 @@ const AccountCardLayout = styled(RippleView)`
 	`,
 	Issuer = styled(Text)`
 		color: ${({ theme }) => theme.color.contentPrimary};
-		fontFamily: 'Poppins_400Regular'
+		font-family: 'Poppins_400Regular'
 		font-size: 20px;
 		font-weight: bold;
 		margin-bottom: 0px;
 	`,
 	Label = styled(Text)`
 		color: ${({ theme }) => theme.color.contentSecondary};
-		fontFamily: 'Poppins_300Light'
+		font-family: 'Poppins_300Light'
 		font-size: 12px;
 	`,
 	TOtp = styled(View)`

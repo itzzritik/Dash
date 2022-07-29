@@ -17,7 +17,7 @@ import styled from 'styled-components/native';
 import { hapticFeedback } from '#utils/system/haptics';
 
 export default function RippleView (props) {
-	const { duration = 500, haptics = true, rippleColor = 'black',
+	const { duration = 500, haptics = true, rippleColor = 'black', tint,
 			children, style, blur, onPressIn, onPress } = props,
 
 		centerX = useSharedValue(0),
@@ -76,7 +76,7 @@ export default function RippleView (props) {
 		});
 
 	return (
-		<RootView intensity={blur} style={style} onLayout={onLayout}>
+		<RootView intensity={blur} style={style} onLayout={onLayout} tint={tint === 'light' ? 'light' : 'dark'}>
 			{children}
 			<TapGestureHandler onGestureEvent={tapGestureEvent}>
 				<Ripple><Animated.View style={rippleStyle} /></Ripple>
