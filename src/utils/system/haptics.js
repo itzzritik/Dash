@@ -1,18 +1,19 @@
-import { Platform, Vibration } from 'react-native';
+import { Vibration } from 'react-native';
 
 import { impactAsync, ImpactFeedbackStyle } from 'expo-haptics';
 
-import { OS } from '#utils/constants';
+import { OS } from '#utils/constants/common';
 
-const HAPTIC_STYLES = {
-	light: { ios: ImpactFeedbackStyle.Light, android: 10 },
-	medium: { ios: ImpactFeedbackStyle.Medium, android: 20 },
-	heavy: { ios: ImpactFeedbackStyle.Heavy, android: 30 },
+const HapticStyle = {
+	android: {
+		light: 10,
+		medium: 20,
+		heavy: 30,
+	},
 };
 
-export const hapticFeedback = (strength = 'light') => {
-	const style = HAPTIC_STYLES[strength][Platform.OS];
+export const hapticFeedback = (strength = ImpactFeedbackStyle.Light) => {
+	if (OS.android) return Vibration.vibrate(HapticStyle.android[strength]);
 
-	if (OS.ios) impactAsync(style);
-	else if (OS.android) Vibration.vibrate(style);
+	impactAsync(strength);
 };
