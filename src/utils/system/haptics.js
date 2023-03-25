@@ -2,7 +2,7 @@ import { Vibration } from 'react-native';
 
 import { impactAsync, ImpactFeedbackStyle } from 'expo-haptics';
 
-import { OS } from '#utils/constants/common';
+import { OS } from '#utils/constants';
 
 const HapticStyle = {
 	android: {
